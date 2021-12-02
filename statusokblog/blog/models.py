@@ -16,3 +16,8 @@ class Post(models.Model):
     count_view = models.PositiveIntegerField("Просмотры", default=0)
     tag_name = models.ManyToManyField(Tag)
 
+    def __str__(self):
+        return self.title
+
+    
+
