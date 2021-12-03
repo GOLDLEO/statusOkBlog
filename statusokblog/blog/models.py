@@ -1,10 +1,12 @@
 from django.db import models
 
+
 class Tag(models.Model):
     name = models.CharField("Название тега", max_length=120)
 
     def __str__(self):
         return self.name
+
 
 class Post(models.Model):
     title = models.CharField("Название статьи", max_length=255)
