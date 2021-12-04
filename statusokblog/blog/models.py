@@ -1,10 +1,6 @@
 from django.db import models
 
 
-def upload_image_post (instance, filename):
-    return 'post_{}/{}'.format(instance.pk, filename)
-
-
 class Tag(models.Model):
     name = models.CharField("Название тега", max_length=120)
 
@@ -25,19 +21,5 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
-class Comment(models.Model):
-    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
-    user_name = models.CharField(max_length=80)
-    email = models.EmailField()
-    comment_text = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ('created',)
-
-    def __str__(self):
-        return 'Comment by {} on {}'.format(self.user_name, self.post)
+    
 
