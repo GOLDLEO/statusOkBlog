@@ -50,3 +50,29 @@ def posts_by_tag(request, *args):
         return Response({
             'data': serializer_posts.data,
         })
+
+
+@api_view(['GET'])
+def post_detail(request, pk):
+    if request.method == 'GET':
+        try:
+            post = Post.objects.filter(pk=pk)
+
+            # update count views
+            post_for_add = Post.objects.filter(pk=pk).update(count_view=post[0].count_view+1)
+        except IndexError:
+            return Response({
+                "status_code": 404,
+                'error_message': 'Статья не найдена.',
+            }, status=status.HTTP_404_NOT_FOUND)
+
+        serializer_post = PostSerializer(post, context={'request': request}, many=True)
+        return Response({
+            'data': serializer_post.data
+        })
+
+    else:
+        return Response({
+            'status_code': 405,
+            "error_message": 'Now allowed methods. We are sorry..',
+        }, status=status.HTTP_405_METHOD_NOT_ALLOWED)

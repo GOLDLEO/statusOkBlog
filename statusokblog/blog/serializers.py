@@ -13,10 +13,11 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     tag_name = TagSerializer(many=True)
+    date_create = serializers.DateTimeField(format="%Y/%m/%d %H:%M", required=False, read_only=True)
 
     class Meta:
         model = Post
-        # fields = "__all__"
+        #fields = "__all__"
         fields = (
             'pk',
             'title',
@@ -26,6 +27,8 @@ class PostSerializer(serializers.ModelSerializer):
             'date_create',
             'is_active',
             'count_view',
-            'tag_name'
+            'tag_name',
+            'cover',
+
         )
 
