@@ -21,6 +21,7 @@ class Post(models.Model):
     is_active = models.BooleanField("Активно", default=False)
     count_view = models.PositiveIntegerField("Просмотры", default=0)
     tag_name = models.ManyToManyField(Tag)
+    cover = models.ImageField('Изображение', upload_to=upload_image_post, default='')
 
     def __str__(self):
         return self.title
